@@ -56,10 +56,10 @@ interface ContactItem {
 }
 
 const contact: ContactItem[] = [
-  {
-    href: "#",
-    title: "Resume",
-  },
+  // {
+  //   href: "#",
+  //   title: "Resume",
+  // },
   {
     href: "https://x.com/josh_jpeg",
     title: "X",
