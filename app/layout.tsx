@@ -21,7 +21,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.variable, "antialiased")}>{children}</body>
+      <body
+        className={cn(
+          inter.variable,
+          "antialiased",
+          "p-5 max-xs:my-3 xs:p-7 sm:p-14"
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }
