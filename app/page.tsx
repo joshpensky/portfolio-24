@@ -84,8 +84,8 @@ export default function Home() {
           className={cn(
             "flex flex-col gap-2",
             "transition-colors",
-            "supports-hover:has-[a:hover]:text-foreground/40",
-            "has-[a:focus]:text-foreground/40",
+            "supports-hover:has-[a:hover]:text-foreground/50",
+            "has-[a:focus]:text-foreground/50",
             "supports-hover:[&:has(a:hover)_*:not(:is(a:hover))]:text-current",
             "[&:has(a:focus)_*:not(:is(a:focus))]:text-current"
           )}
@@ -138,7 +138,7 @@ export default function Home() {
             <li key={item.href} className="contents">
               <dl className="contents">
                 <dt className="sr-only">Year</dt>
-                <dd className="text-foreground/40">
+                <dd className="text-foreground/50">
                   {item.year}
                   {item.ongoing ? (
                     <span aria-label=" to present"> &ndash;</span>
@@ -164,7 +164,7 @@ export default function Home() {
                 </dd>
 
                 <dt className="sr-only">Role</dt>
-                <dd className="text-foreground/40 xs:text-right max-xs:col-start-2 max-xs:-mt-2 max-xs:mb-1">
+                <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:-mt-2 max-xs:mb-1">
                   {item.role}
                 </dd>
               </dl>
@@ -181,7 +181,7 @@ export default function Home() {
             <Link
               key={item.title}
               className={cn(
-                "text-foreground/40 transition-colors",
+                "text-foreground/50 transition-colors",
                 "supports-hover:hover:text-foreground",
                 "focus:text-foreground outline-none"
               )}
