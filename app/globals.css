@@ -4,6 +4,7 @@
 
 body {
   @apply bg-background text-foreground font-sans;
+  @apply selection:bg-foreground/20 selection:text-foreground;
 }
 
 @layer utilities {
