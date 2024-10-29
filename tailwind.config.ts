@@ -21,7 +21,10 @@ const config: Config = {
       colors: {
         background: "#F2EDE5",
         foreground: "#373D35",
-        action: "#5CA052",
+      },
+
+      height: {
+        screen: "100dvh",
       },
 
       screens: {

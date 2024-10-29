@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Hover, HoverItem } from "~/components/hover";
+import { Preview } from "~/components/Preview";
 import { cn } from "~/lib/cn";
 
 interface WorkItem {
@@ -8,6 +9,13 @@ interface WorkItem {
   title: string;
   role: string;
   href: string | null;
+  previews?: {
+    mime: string;
+    src: string;
+    alt?: string;
+    width: number;
+    height: number;
+  }[];
 }
 
 const work: WorkItem[] = [
@@ -17,12 +25,49 @@ const work: WorkItem[] = [
     title: "Marathon",
     role: "Founder",
     href: "https://marathontv.app",
+    previews: [
+      {
+        mime: "video/mp4",
+        src: "/marathon-show-page.mp4",
+        width: 1,
+        height: 1,
+      },
+      {
+        mime: "image/png",
+        src: "/marathon-share-review.png",
+        alt: "A share image from Marathon's socials featuring the new share sheet with custom explore images.",
+        width: 1200,
+        height: 750,
+      },
+      {
+        mime: "image/png",
+        src: "/marathon-explore.png",
+        alt: "A screenshot of Marathon's explore page, with different paths for discovering new shows.",
+        width: 1200,
+        height: 750,
+      },
+    ],
   },
   {
     year: 2024,
     title: "Baselayer",
     role: "Co-founder",
     href: "https://baselayer.app",
+    previews: [
+      {
+        mime: "image/png",
+        src: "/baselayer-dashboard.png",
+        alt: "A screenshot of Baselayer's dashboard, focusing on the edit form for an organization.",
+        width: 1300,
+        height: 840,
+      },
+      {
+        mime: "video/mp4",
+        src: "/baselayer-favorites.mp4",
+        width: 2880,
+        height: 2160,
+      },
+    ],
   },
   {
     year: 2024,
@@ -76,124 +121,134 @@ const contact: ContactItem[] = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-4 max-w-lg">
-      <h1 className="font-medium">Josh Pensky</h1>
+    <div className="p-5 max-xs:my-3 xs:p-7 sm:p-14">
+      <main className={cn("flex flex-col gap-4 max-w-lg")}>
+        <h1 className="font-medium">Josh Pensky</h1>
 
-      <Hover>
-        <section
-          className={cn(
-            "flex flex-col gap-2",
-            "transition-colors",
-            "supports-hover:has-[a:hover]:text-foreground/50",
-            "has-[a:focus]:text-foreground/50",
-            "supports-hover:[&:has(a:hover)_*:not(:is(a:hover))]:text-current",
-            "[&:has(a:focus)_*:not(:is(a:focus))]:text-current"
-          )}
-        >
-          <h2 className="sr-only">About</h2>
+        <Hover>
+          <section
+            className={cn(
+              "flex flex-col gap-2",
+              "transition-colors",
+              "supports-hover:has-[a:hover]:text-foreground/50",
+              "has-[a:focus]:text-foreground/50",
+              "supports-hover:[&:has(a:hover)_*:not(:is(a:hover))]:text-current",
+              "[&:has(a:focus)_*:not(:is(a:focus))]:text-current"
+            )}
+          >
+            <h2 className="sr-only">About</h2>
 
-          <p>I build accessible, design-forward products.</p>
+            <p>I build accessible, design-forward products.</p>
 
-          <p>
-            In 2022 I founded{" "}
-            <HoverItem hoverClassName="text-foreground">
-              <Link
-                className="outline-none"
-                href="https://marathontv.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Marathon
-              </Link>
-            </HoverItem>
-            , a social platform to explore, log, and discuss all things TV.
-            Marathon has been featured in the App Store, Tom&apos;s Guide, and
-            Lifehacker, and has a growing community of 20,000+ members.
-          </p>
+            <p>
+              In 2022 I founded{" "}
+              <HoverItem hoverClassName="text-foreground">
+                <Link
+                  className="outline-none"
+                  href="https://marathontv.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Marathon
+                </Link>
+              </HoverItem>
+              , a social platform to explore, log, and discuss all things TV.
+              Marathon has been featured in the App Store, Tom&apos;s Guide, and
+              Lifehacker, and has a growing community of over 20,000 members.
+            </p>
 
-          <p>
-            I also co-founded{" "}
-            <HoverItem hoverClassName="text-foreground">
-              <Link
-                className="outline-none"
-                href="https://baselayer.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Baselayer
-              </Link>
-            </HoverItem>{" "}
-            with the team at Upstatement. Baselayer is a new way to build
-            internal tools without leaving your codebase. It is currently in
-            pre-alpha.
-          </p>
+            <p>
+              I also co-founded{" "}
+              <HoverItem hoverClassName="text-foreground">
+                <Link
+                  className="outline-none"
+                  href="https://baselayer.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Baselayer
+                </Link>
+              </HoverItem>{" "}
+              with the team at Upstatement. Baselayer is a new way to build
+              internal tools without leaving your codebase. It is currently in
+              pre-alpha.
+            </p>
+          </section>
+        </Hover>
+
+        <section className="flex flex-col mt-2">
+          <h2 className="sr-only">Work</h2>
+
+          <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
+            {work.map((item) => (
+              <li key={item.href} className="contents">
+                <dl className="contents">
+                  <dt className="sr-only">Year</dt>
+                  <dd className="text-foreground/50">
+                    {item.year}
+                    {item.ongoing ? (
+                      <span aria-label=" to present"> &ndash;</span>
+                    ) : (
+                      ""
+                    )}
+                  </dd>
+
+                  <dt className="sr-only">Title</dt>
+                  <dd>
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        className="hover:text-black"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      item.title
+                    )}
+                  </dd>
+
+                  <dt className="sr-only">Role</dt>
+                  <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
+                    {item.role}
+                  </dd>
+                </dl>
+
+                {!!item.previews?.length && (
+                  <div className="col-start-2 col-span-2 mb-2 -mt-1.5 flex flex-wrap gap-2">
+                    {item.previews.map((preview) => (
+                      <Preview key={preview.src} {...preview} />
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
         </section>
-      </Hover>
 
-      <section className="flex flex-col mt-2">
-        <h2 className="sr-only">Work</h2>
+        <section className="flex gap-x-4 mt-8">
+          <h2 className="sr-only">Contact</h2>
 
-        <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-2 max-xs:grid-cols-[auto_1fr]">
-          {work.map((item) => (
-            <li key={item.href} className="contents">
-              <dl className="contents">
-                <dt className="sr-only">Year</dt>
-                <dd className="text-foreground/50">
-                  {item.year}
-                  {item.ongoing ? (
-                    <span aria-label=" to present"> &ndash;</span>
-                  ) : (
-                    ""
-                  )}
-                </dd>
-
-                <dt className="sr-only">Title</dt>
-                <dd>
-                  {item.href ? (
-                    <Link
-                      href={item.href}
-                      className="hover:text-black"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {item.title}
-                    </Link>
-                  ) : (
-                    item.title
-                  )}
-                </dd>
-
-                <dt className="sr-only">Role</dt>
-                <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:-mt-2 max-xs:mb-1">
-                  {item.role}
-                </dd>
-              </dl>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="flex gap-x-4 mt-8">
-        <h2 className="sr-only">Contact</h2>
-
-        <ul className="flex flex-wrap gap-x-4 gap-y-1">
-          {contact.map((item) => (
-            <Link
-              key={item.title}
-              className={cn(
-                "text-foreground/50 transition-colors",
-                "supports-hover:hover:text-foreground",
-                "focus:text-foreground outline-none"
-              )}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {item.title}
-            </Link>
-          ))}
-        </ul>
-      </section>
-    </main>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            {contact.map((item) => (
+              <Link
+                key={item.title}
+                className={cn(
+                  "text-foreground/50 transition-colors",
+                  "supports-hover:hover:text-foreground",
+                  "focus:text-foreground outline-none"
+                )}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </ul>
+        </section>
+      </main>
+    </div>
   );
 }
