@@ -121,7 +121,7 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
               </DialogOverlay>
               <DialogContent asChild aria-describedby={undefined}>
                 <div
-                  className="fixed top-0 inset-x-0 h-screen z-20 outline-none p-4 flex items-center justify-center !pointer-events-none"
+                  className="fixed top-0 inset-x-0 h-screen z-20 outline-none flex items-center justify-center !pointer-events-none"
                   style={{ "--aspect": `${width} / ${height}` }}
                 >
                   <DialogTitle asChild>
@@ -148,7 +148,7 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
                   </DialogClose>
 
                   <motion.div
-                    className="flex w-[min(100vw-2rem,(100dvh-2rem)*var(--aspect))] aspect-[--aspect] relative overflow-hidden rounded-lg pointer-events-auto"
+                    className="flex w-[min(100vw,100vh*var(--aspect))] sm:w-[min(100vw-2rem,(100dvh-2rem)*var(--aspect))] sm:rounded-lg aspect-[--aspect] relative overflow-hidden pointer-events-auto"
                     layoutId="preview"
                     transition={{
                       type: "spring",
