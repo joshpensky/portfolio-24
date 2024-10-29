@@ -32,6 +32,7 @@ function Asset({ src, mime, alt }: AssetProps) {
         loop
         muted
         controls={false}
+        playsInline
       />
     );
   } else {
