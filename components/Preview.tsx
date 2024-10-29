@@ -26,6 +26,7 @@ function Asset({ src, mime, alt }: AssetProps) {
   if (mime.startsWith("video/")) {
     return (
       <video
+        draggable={false}
         className="absolute inset-0 w-full h-full"
         src={src}
         autoPlay
@@ -38,6 +39,7 @@ function Asset({ src, mime, alt }: AssetProps) {
   } else {
     return (
       <Image
+        draggable={false}
         className="w-full h-full"
         src={src}
         alt={alt ?? ""}
@@ -150,6 +152,25 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
                   <motion.div
                     className="flex w-[min(100vw,100vh*var(--aspect))] sm:w-[min(100vw-2rem,(100dvh-2rem)*var(--aspect))] sm:rounded-lg aspect-[--aspect] relative overflow-hidden pointer-events-auto"
                     layoutId="preview"
+                    drag
+                    dragConstraints={{
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                    }}
+                    onDragEnd={(_event, info) => {
+                      if (
+                        Math.abs(info.velocity.x) > 100 ||
+                        Math.abs(info.velocity.y) > 100
+                      ) {
+                        setOpen(false);
+                      }
+                    }}
+                    dragTransition={{
+                      bounceStiffness: 500,
+                      bounceDamping: 20,
+                    }}
                     transition={{
                       type: "spring",
                       mass: 0.06,
