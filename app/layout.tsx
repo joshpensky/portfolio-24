@@ -12,6 +12,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Josh Pensky",
   description: "Josh Pensky is a product engineer and founder based in Boston.",
+  openGraph: {
+    url: "https://joshpensky.com",
+  },
+  twitter: {
+    creator: "@joshpensky",
+  },
 };
 
 export default function RootLayout({

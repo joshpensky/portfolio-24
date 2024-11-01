@@ -106,7 +106,7 @@ const contact: ContactItem[] = [
     title: "Resume",
   },
   {
-    href: "https://x.com/josh_jpeg",
+    href: "https://x.com/joshpensky",
     title: "X",
   },
   {
