@@ -52,7 +52,7 @@ const work: WorkItem[] = [
     year: 2024,
     title: "Baselayer",
     role: "Co-founder",
-    href: "https://baselayer.app/signin",
+    href: "https://baselayer.app",
     previews: [
       {
         mime: "image/png",
@@ -162,7 +162,7 @@ export default function Home() {
               <HoverItem hoverClassName="text-foreground">
                 <Link
                   className="outline-none"
-                  href="https://baselayer.app/signin"
+                  href="https://baselayer.app"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
