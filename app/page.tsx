@@ -50,6 +50,27 @@ const work: WorkItem[] = [
   },
   {
     year: 2024,
+    title: "Condé Nast",
+    role: "Lead Engineer",
+    href: null,
+  },
+  {
+    year: 2022,
+    title: "GoNoodle",
+    role: "Lead Engineer",
+    href: "https://gonoodle.com",
+  },
+  {
+    year: 2021,
+    title: "Koala Health",
+    role: "Senior Engineer",
+    href: "https://koala.health",
+  },
+];
+
+const projects: WorkItem[] = [
+  {
+    year: 2024,
     title: "Baselayer",
     role: "Co-founder",
     href: "https://baselayer.app",
@@ -70,28 +91,37 @@ const work: WorkItem[] = [
     ],
   },
   {
-    year: 2024,
-    title: "Condé Nast",
-    role: "Lead Engineer",
-    href: null,
-  },
-  {
-    year: 2023,
-    title: "Campsite",
-    role: "Product Engineer",
-    href: "https://campsite.com",
-  },
-  {
     year: 2022,
-    title: "GoNoodle",
-    role: "Lead Engineer",
-    href: "https://gonoodle.com",
+    title: "Spectacles",
+    role: "Creator",
+    href: "https://apps.apple.com/ro/app/spectacles-cbt-partner/id6443663992",
   },
   {
     year: 2021,
-    title: "Koala Health",
-    role: "Senior Engineer",
-    href: "https://koala.health",
+    title: "Myseum",
+    role: "Creator",
+    href: "https://myseum.space",
+  },
+];
+
+const writings: WorkItem[] = [
+  {
+    year: 2024,
+    title: "Accelerating Time to Value",
+    role: "Upstatement",
+    href: "https://upstatement.com/blog/introducing-baselayer",
+  },
+  {
+    year: 2024,
+    title: "Watching TV with Marathon",
+    role: "Railway",
+    href: "https://blog.railway.com/p/marathon-tv-app",
+  },
+  {
+    year: 2023,
+    title: "How a Start-Up Founder Manages Its Backlog",
+    role: "Upstatement",
+    href: "https://upstatement.com/blog/how-a-start-up-founder-manages-its-backlog",
   },
 ];
 
@@ -106,8 +136,8 @@ const contact: ContactItem[] = [
     title: "Resume",
   },
   {
-    href: "https://x.com/joshpensky",
-    title: "X",
+    href: "https://bsky.app/profile/joshpensky.com",
+    title: "Bluesky",
   },
   {
     href: "https://github.com/joshpensky",
@@ -158,7 +188,7 @@ export default function Home() {
             </p>
 
             <p>
-              I also co-founded{" "}
+              I also created{" "}
               <HoverItem hoverClassName="text-foreground">
                 <Link
                   className="outline-none"
@@ -169,22 +199,22 @@ export default function Home() {
                   Baselayer
                 </Link>
               </HoverItem>{" "}
-              with the team at Upstatement. Baselayer is a new way to build
-              internal tools without leaving your codebase. It is currently in
-              pre-alpha.
+              with the team at Upstatement. Baselayer is an internal workspace
+              built to access, share, and collaborate on product data with your
+              whole team.
             </p>
           </section>
         </Hover>
 
-        <section className="flex flex-col mt-2">
-          <h2 className="sr-only">Work</h2>
+        <section className="flex flex-col mt-3">
+          <h2 className="font-medium mb-3">Work</h2>
 
           <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
             {work.map((item) => (
               <li key={item.href} className="contents">
                 <dl className="contents">
                   <dt className="sr-only">Year</dt>
-                  <dd className="text-foreground/50">
+                  <dd className="text-foreground/50 min-w-14">
                     {item.year}
                     {item.ongoing ? (
                       <span aria-label=" to present"> &ndash;</span>
@@ -216,7 +246,7 @@ export default function Home() {
                 </dl>
 
                 {!!item.previews?.length && (
-                  <div className="col-start-2 col-span-2 mb-2 -mt-1.5 flex flex-wrap gap-2">
+                  <div className="col-start-2 col-span-2 mb-1.5 -mt-1 flex flex-wrap gap-2">
                     {item.previews.map((preview) => (
                       <Preview key={preview.src} {...preview} />
                     ))}
@@ -227,7 +257,104 @@ export default function Home() {
           </ul>
         </section>
 
-        <section className="flex gap-x-4 mt-8">
+        <section className="flex flex-col mt-3">
+          <h2 className="font-medium mb-3">Projects</h2>
+
+          <ul className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
+            {projects.map((item) => (
+              <li key={item.href} className="contents">
+                <dl className="contents">
+                  <dt className="sr-only">Year</dt>
+                  <dd className="text-foreground/50 min-w-14">
+                    {item.year}
+                    {item.ongoing ? (
+                      <span aria-label=" to present"> &ndash;</span>
+                    ) : (
+                      ""
+                    )}
+                  </dd>
+
+                  <dt className="sr-only">Title</dt>
+                  <dd>
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        className="hover:text-black"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      item.title
+                    )}
+                  </dd>
+                </dl>
+
+                {!!item.previews?.length && (
+                  <div className="col-start-2 col-span-1 mb-1.5 -mt-1 flex flex-wrap gap-2">
+                    {item.previews.map((preview) => (
+                      <Preview key={preview.src} {...preview} />
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="flex flex-col mt-3">
+          <h2 className="font-medium mb-3">Writing</h2>
+
+          <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
+            {writings.map((item) => (
+              <li key={item.href} className="contents">
+                <dl className="contents">
+                  <dt className="sr-only">Year</dt>
+                  <dd className="text-foreground/50 min-w-14">
+                    {item.year}
+                    {item.ongoing ? (
+                      <span aria-label=" to present"> &ndash;</span>
+                    ) : (
+                      ""
+                    )}
+                  </dd>
+
+                  <dt className="sr-only">Title</dt>
+                  <dd>
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        className="hover:text-black"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      item.title
+                    )}
+                  </dd>
+
+                  <dt className="sr-only">Publisher</dt>
+                  <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
+                    {item.role}
+                  </dd>
+                </dl>
+
+                {!!item.previews?.length && (
+                  <div className="col-start-2 col-span-2 mb-1.5 -mt-1 flex flex-wrap gap-2">
+                    {item.previews.map((preview) => (
+                      <Preview key={preview.src} {...preview} />
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="flex gap-x-4 mt-10">
           <h2 className="sr-only">Contact</h2>
 
           <ul className="flex flex-wrap gap-x-4 gap-y-1">
