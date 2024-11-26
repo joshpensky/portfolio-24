@@ -257,7 +257,7 @@ export default function Home() {
           </ul>
         </section>
 
-        <section className="flex flex-col mt-3">
+        <section className="flex flex-col mt-4">
           <h2 className="font-medium mb-3">Projects</h2>
 
           <ul className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
@@ -303,7 +303,7 @@ export default function Home() {
           </ul>
         </section>
 
-        <section className="flex flex-col mt-3">
+        <section className="flex flex-col mt-4">
           <h2 className="font-medium mb-3">Writing</h2>
 
           <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
