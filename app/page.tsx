@@ -7,7 +7,7 @@ interface WorkItem {
   year: number;
   ongoing?: true;
   title: string;
-  role: string;
+  meta: string;
   href: string | null;
   previews?: {
     mime: string;
@@ -23,7 +23,7 @@ const work: WorkItem[] = [
     year: 2022,
     ongoing: true,
     title: "Marathon",
-    role: "Founder",
+    meta: "Founder",
     href: "https://marathontv.app",
     previews: [
       {
@@ -51,19 +51,19 @@ const work: WorkItem[] = [
   {
     year: 2024,
     title: "Condé Nast",
-    role: "Lead Engineer",
+    meta: "Lead Engineer",
     href: null,
   },
   {
     year: 2022,
     title: "GoNoodle",
-    role: "Lead Engineer",
+    meta: "Lead Engineer",
     href: "https://gonoodle.com",
   },
   {
     year: 2021,
     title: "Koala Health",
-    role: "Senior Engineer",
+    meta: "Senior Engineer",
     href: "https://koala.health",
   },
 ];
@@ -72,7 +72,7 @@ const projects: WorkItem[] = [
   {
     year: 2024,
     title: "Baselayer",
-    role: "Co-founder",
+    meta: "Productivity",
     href: "https://baselayer.app",
     previews: [
       {
@@ -93,13 +93,13 @@ const projects: WorkItem[] = [
   {
     year: 2022,
     title: "Spectacles",
-    role: "Creator",
+    meta: "Health",
     href: "https://apps.apple.com/ro/app/spectacles-cbt-partner/id6443663992",
   },
   {
     year: 2021,
     title: "Myseum",
-    role: "Creator",
+    meta: "Art",
     href: "https://myseum.space",
   },
 ];
@@ -108,19 +108,19 @@ const writings: WorkItem[] = [
   {
     year: 2024,
     title: "Accelerating Time to Value",
-    role: "Upstatement",
+    meta: "Upstatement",
     href: "https://upstatement.com/blog/introducing-baselayer",
   },
   {
     year: 2024,
     title: "Watching TV with Marathon",
-    role: "Railway",
+    meta: "Railway",
     href: "https://blog.railway.com/p/marathon-tv-app",
   },
   {
     year: 2023,
     title: "How a Start-Up Founder Manages Its Backlog",
-    role: "Upstatement",
+    meta: "Upstatement",
     href: "https://upstatement.com/blog/how-a-start-up-founder-manages-its-backlog",
   },
 ];
@@ -241,7 +241,7 @@ export default function Home() {
 
                   <dt className="sr-only">Role</dt>
                   <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
-                    {item.role}
+                    {item.meta}
                   </dd>
                 </dl>
 
@@ -260,7 +260,7 @@ export default function Home() {
         <section className="flex flex-col mt-4">
           <h2 className="font-medium mb-3">Projects</h2>
 
-          <ul className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
+          <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
             {projects.map((item) => (
               <li key={item.href} className="contents">
                 <dl className="contents">
@@ -289,10 +289,15 @@ export default function Home() {
                       item.title
                     )}
                   </dd>
+
+                  <dt className="sr-only">Area</dt>
+                  <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
+                    {item.meta}
+                  </dd>
                 </dl>
 
                 {!!item.previews?.length && (
-                  <div className="col-start-2 col-span-1 mb-1.5 -mt-1 flex flex-wrap gap-2">
+                  <div className="col-start-2 col-span-2 mb-1.5 -mt-1 flex flex-wrap gap-2">
                     {item.previews.map((preview) => (
                       <Preview key={preview.src} {...preview} />
                     ))}
@@ -338,7 +343,7 @@ export default function Home() {
 
                   <dt className="sr-only">Publisher</dt>
                   <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
-                    {item.role}
+                    {item.meta}
                   </dd>
                 </dl>
 
