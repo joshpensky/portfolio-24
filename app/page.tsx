@@ -1,24 +1,10 @@
 import Link from "next/link";
+import { ContactItem, ContactList } from "~/components/ContactList";
 import { Hover, HoverItem } from "~/components/hover";
-import { Preview } from "~/components/Preview";
+import { Table, TableItem } from "~/components/Table";
 import { cn } from "~/lib/cn";
 
-interface WorkItem {
-  year: number;
-  ongoing?: true;
-  title: string;
-  meta: string;
-  href: string | null;
-  previews?: {
-    mime: string;
-    src: string;
-    alt?: string;
-    width: number;
-    height: number;
-  }[];
-}
-
-const work: WorkItem[] = [
+const work: TableItem[] = [
   {
     year: 2022,
     ongoing: true,
@@ -68,7 +54,7 @@ const work: WorkItem[] = [
   },
 ];
 
-const projects: WorkItem[] = [
+const projects: TableItem[] = [
   {
     year: 2024,
     title: "Baselayer",
@@ -104,7 +90,7 @@ const projects: WorkItem[] = [
   },
 ];
 
-const writings: WorkItem[] = [
+const writings: TableItem[] = [
   {
     year: 2024,
     title: "Accelerating Time to Value",
@@ -124,11 +110,6 @@ const writings: WorkItem[] = [
     href: "https://upstatement.com/blog/how-a-start-up-founder-manages-its-backlog",
   },
 ];
-
-interface ContactItem {
-  href: string;
-  title: string;
-}
 
 const contact: ContactItem[] = [
   {
@@ -152,7 +133,7 @@ const contact: ContactItem[] = [
 export default function Home() {
   return (
     <div className="p-5 max-xs:my-3 xs:p-7 sm:p-14">
-      <main className={cn("flex flex-col gap-4 max-w-lg")}>
+      <main className={cn("flex flex-col gap-4 max-w-lg mx-auto")}>
         <h1 className="font-medium">Josh Pensky</h1>
 
         <Hover>
@@ -183,8 +164,9 @@ export default function Home() {
                 </Link>
               </HoverItem>
               , a social platform to explore, log, and discuss all things TV.
-              Marathon has been featured in the App Store, Tom&apos;s Guide, and
-              Lifehacker, and has a growing community of over 20,000 members.
+              Marathon has been featured in the App Store, Tom&apos;s Guide,
+              Lifehacker, and The Verge, and has a growing community of over
+              21,000 members.
             </p>
 
             <p>
@@ -209,176 +191,25 @@ export default function Home() {
         <section className="flex flex-col mt-3">
           <h2 className="font-medium mb-3">Work</h2>
 
-          <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
-            {work.map((item) => (
-              <li key={item.href} className="contents">
-                <dl className="contents">
-                  <dt className="sr-only">Year</dt>
-                  <dd className="text-foreground/50 min-w-14">
-                    {item.year}
-                    {item.ongoing ? (
-                      <span aria-label=" to present"> &ndash;</span>
-                    ) : (
-                      ""
-                    )}
-                  </dd>
-
-                  <dt className="sr-only">Title</dt>
-                  <dd>
-                    {item.href ? (
-                      <Link
-                        href={item.href}
-                        className="hover:text-black"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {item.title}
-                      </Link>
-                    ) : (
-                      item.title
-                    )}
-                  </dd>
-
-                  <dt className="sr-only">Role</dt>
-                  <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
-                    {item.meta}
-                  </dd>
-                </dl>
-
-                {!!item.previews?.length && (
-                  <div className="col-start-2 col-span-2 mb-1.5 -mt-1 flex flex-wrap gap-2">
-                    {item.previews.map((preview) => (
-                      <Preview key={preview.src} {...preview} />
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <Table items={work} metaColumnLabel="Role" />
         </section>
 
         <section className="flex flex-col mt-4">
           <h2 className="font-medium mb-3">Projects</h2>
 
-          <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
-            {projects.map((item) => (
-              <li key={item.href} className="contents">
-                <dl className="contents">
-                  <dt className="sr-only">Year</dt>
-                  <dd className="text-foreground/50 min-w-14">
-                    {item.year}
-                    {item.ongoing ? (
-                      <span aria-label=" to present"> &ndash;</span>
-                    ) : (
-                      ""
-                    )}
-                  </dd>
-
-                  <dt className="sr-only">Title</dt>
-                  <dd>
-                    {item.href ? (
-                      <Link
-                        href={item.href}
-                        className="hover:text-black"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {item.title}
-                      </Link>
-                    ) : (
-                      item.title
-                    )}
-                  </dd>
-
-                  <dt className="sr-only">Area</dt>
-                  <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
-                    {item.meta}
-                  </dd>
-                </dl>
-
-                {!!item.previews?.length && (
-                  <div className="col-start-2 col-span-2 mb-1.5 -mt-1 flex flex-wrap gap-2">
-                    {item.previews.map((preview) => (
-                      <Preview key={preview.src} {...preview} />
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <Table items={projects} metaColumnLabel="Focus" />
         </section>
 
         <section className="flex flex-col mt-4">
           <h2 className="font-medium mb-3">Writing</h2>
 
-          <ul className="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-3 max-xs:grid-cols-[auto_1fr]">
-            {writings.map((item) => (
-              <li key={item.href} className="contents">
-                <dl className="contents">
-                  <dt className="sr-only">Year</dt>
-                  <dd className="text-foreground/50 min-w-14">
-                    {item.year}
-                    {item.ongoing ? (
-                      <span aria-label=" to present"> &ndash;</span>
-                    ) : (
-                      ""
-                    )}
-                  </dd>
-
-                  <dt className="sr-only">Title</dt>
-                  <dd>
-                    {item.href ? (
-                      <Link
-                        href={item.href}
-                        className="hover:text-black"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {item.title}
-                      </Link>
-                    ) : (
-                      item.title
-                    )}
-                  </dd>
-
-                  <dt className="sr-only">Publisher</dt>
-                  <dd className="text-foreground/50 xs:text-right max-xs:col-start-2 max-xs:col-span-2 max-xs:-mt-3">
-                    {item.meta}
-                  </dd>
-                </dl>
-
-                {!!item.previews?.length && (
-                  <div className="col-start-2 col-span-2 mb-1.5 -mt-1 flex flex-wrap gap-2">
-                    {item.previews.map((preview) => (
-                      <Preview key={preview.src} {...preview} />
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <Table items={writings} metaColumnLabel="Publisher" />
         </section>
 
-        <section className="flex gap-x-4 mt-10">
+        <section className="flex gap-x-4 mt-12">
           <h2 className="sr-only">Contact</h2>
 
-          <ul className="flex flex-wrap gap-x-4 gap-y-1">
-            {contact.map((item) => (
-              <Link
-                key={item.title}
-                className={cn(
-                  "text-foreground/50 transition-colors",
-                  "supports-hover:hover:text-foreground",
-                  "focus:text-foreground outline-none"
-                )}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item.title}
-              </Link>
-            ))}
-          </ul>
+          <ContactList items={contact} />
         </section>
       </main>
     </div>

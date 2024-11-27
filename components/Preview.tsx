@@ -10,9 +10,14 @@ import {
   DialogTrigger,
 } from "@radix-ui/react-dialog";
 import { X } from "@untitled-ui/icons-react";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 import Image from "next/image";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "~/lib/cn";
 import { useFocusVisible } from "react-aria";
 
@@ -20,16 +25,31 @@ interface AssetProps {
   src: string;
   alt?: string;
   mime: string;
+  forceAutoPlay?: boolean;
 }
 
-function Asset({ src, mime, alt }: AssetProps) {
+function Asset({ src, mime, alt, forceAutoPlay }: AssetProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!shouldReduceMotion || forceAutoPlay) {
+      if (video.paused) video.play();
+    } else {
+      video.pause();
+    }
+  }, [shouldReduceMotion, forceAutoPlay]);
+
   if (mime.startsWith("video/")) {
     return (
       <video
+        ref={videoRef}
         draggable={false}
         className="absolute inset-0 w-full h-full"
         src={src}
-        autoPlay
         loop
         muted
         controls={false}
@@ -57,6 +77,14 @@ export interface PreviewProps {
   height: number;
 }
 
+const springTransition = {
+  type: "spring",
+  mass: 0.06,
+  stiffness: 20,
+  damping: 1.8,
+  velocity: 10,
+};
+
 export function Preview({ src, mime, width, height }: PreviewProps) {
   const id = useId();
 
@@ -65,6 +93,8 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
   const [focus, setFocus] = useState(false);
   const { isFocusVisible } = useFocusVisible();
   const focused = focus && isFocusVisible;
+
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <LayoutGroup id={id}>
@@ -86,14 +116,8 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
           >
             <motion.div
               className="h-full aspect-[--aspect] relative rounded-lg overflow-hidden"
-              layoutId="preview"
-              transition={{
-                type: "spring",
-                mass: 0.06,
-                stiffness: 20,
-                damping: 1.8,
-                velocity: 10,
-              }}
+              layoutId={shouldReduceMotion ? undefined : "preview"}
+              transition={springTransition}
             >
               <Asset src={src} mime={mime} />
             </motion.div>
@@ -122,9 +146,16 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
                 />
               </DialogOverlay>
               <DialogContent asChild aria-describedby={undefined}>
-                <div
+                <motion.div
                   className="fixed top-0 inset-x-0 h-screen z-20 outline-none flex items-center justify-center !pointer-events-none"
-                  style={{ "--aspect": `${width} / ${height}` }}
+                  style={{ "--aspect": `${width} / ${height}` } as any}
+                  variants={{
+                    closed: { opacity: 0 },
+                    open: { opacity: 1 },
+                  }}
+                  initial={shouldReduceMotion ? "closed" : "open"}
+                  animate={open ? "open" : "closed"}
+                  exit={shouldReduceMotion ? "closed" : "open"}
                 >
                   <DialogTitle asChild>
                     <h2 className="sr-only">Full-screen preview</h2>
@@ -151,37 +182,28 @@ export function Preview({ src, mime, width, height }: PreviewProps) {
 
                   <motion.div
                     className="flex w-[min(100vw,100vh*var(--aspect))] sm:w-[min(100vw-2rem,(100dvh-2rem)*var(--aspect))] sm:rounded-lg aspect-[--aspect] relative overflow-hidden pointer-events-auto"
-                    layoutId="preview"
+                    layoutId={shouldReduceMotion ? undefined : "preview"}
                     drag
-                    dragConstraints={{
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                    }}
+                    dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
                     onDragEnd={(_event, info) => {
                       if (
                         Math.abs(info.velocity.x) > 100 ||
-                        Math.abs(info.velocity.y) > 100
+                        Math.abs(info.velocity.y) > 100 ||
+                        Math.abs(info.offset.x) > 100 ||
+                        Math.abs(info.offset.y) > 100
                       ) {
                         setOpen(false);
                       }
                     }}
                     dragTransition={{
-                      bounceStiffness: 500,
+                      bounceStiffness: 300,
                       bounceDamping: 20,
                     }}
-                    transition={{
-                      type: "spring",
-                      mass: 0.06,
-                      stiffness: 20,
-                      damping: 1.8,
-                      velocity: 10,
-                    }}
+                    transition={springTransition}
                   >
-                    <Asset src={src} mime={mime} />
+                    <Asset src={src} mime={mime} forceAutoPlay />
                   </motion.div>
-                </div>
+                </motion.div>
               </DialogContent>
             </DialogPortal>
           )}
