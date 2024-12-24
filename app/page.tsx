@@ -93,6 +93,12 @@ const projects: TableItem[] = [
 const writings: TableItem[] = [
   {
     year: 2024,
+    title: "How We Promote Social Sharing",
+    meta: "Expo",
+    href: "https://expo.dev/blog/how-we-promote-social-sharing-on-marathon-with-expo",
+  },
+  {
+    year: 2024,
     title: "Accelerating Time to Value",
     meta: "Upstatement",
     href: "https://upstatement.com/blog/introducing-baselayer",
