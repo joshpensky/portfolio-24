@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "~/lib/cn";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,12 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script
-        src="https://monitoring.evervault.app/script.js?id=4543191ab022"
-        strategy="beforeInteractive"
-      />
+      <head>
+        <Script
+          src="https://monitoring.evervault.app/script.js?id=4543191ab022"
+          strategy="beforeInteractive"
+        />
+      </head>
 
       <Script src="https://js.evervault.com/v2" />
+      <Analytics />
 
       <body className={cn(inter.variable, "antialiased")}>{children}</body>
     </html>
