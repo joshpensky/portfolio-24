@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script
-          src="https://monitoring.evervault.app/script.js?id=4543191ab022"
+          src="https://monitoring.evervault.app/script.js?id=125f6128743c"
           strategy="beforeInteractive"
         />
       </head>
