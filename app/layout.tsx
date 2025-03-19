@@ -37,6 +37,8 @@ export default function RootLayout({
       </head>
 
       <Script src="https://js.evervault.com/v2" />
+      <Script src="https://www.google.com/recaptcha/api.js" async defer />
+
       <Analytics />
 
       <body className={cn(inter.variable, "antialiased")}>{children}</body>
