@@ -32,6 +32,9 @@ export default function RootLayout({
         src="https://monitoring.evervault.app/script.js?id=4543191ab022"
         strategy="beforeInteractive"
       />
+
+      <Script src="https://js.evervault.com/v2" />
+
       <body className={cn(inter.variable, "antialiased")}>{children}</body>
     </html>
   );
