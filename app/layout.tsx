@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "~/lib/cn";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
@@ -29,17 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <Script src="https://monitoring.evervault.app/script.js?id=125f6128743c" />
-      </head>
-
-      <Script src="https://js-eu1.hscollectedforms.net/collectedforms.js" />
-
-      <Script src="https://js.evervault.com/v2" />
-      <Script src="https://www.google.com/recaptcha/api.js" async defer />
-
       <Analytics />
-
       <body className={cn(inter.variable, "antialiased")}>{children}</body>
     </html>
   );
