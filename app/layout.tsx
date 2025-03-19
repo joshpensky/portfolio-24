@@ -30,11 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script
-          src="https://monitoring.evervault.app/script.js?id=125f6128743c"
-          strategy="beforeInteractive"
-        />
+        <Script src="https://monitoring.evervault.app/script.js?id=125f6128743c" />
       </head>
+
+      <Script src="https://js-eu1.hscollectedforms.net/collectedforms.js" />
 
       <Script src="https://js.evervault.com/v2" />
       <Script src="https://www.google.com/recaptcha/api.js" async defer />
